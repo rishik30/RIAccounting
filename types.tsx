@@ -3,6 +3,10 @@ export type RootStackParamList = {
   NotFound: undefined;
 };
 
+export type AuthStackParamList = {
+  Login: undefined;
+};
+
 export type BottomTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
@@ -15,3 +19,9 @@ export type TabOneParamList = {
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
+
+export interface IAuth {
+  login?: (email: string, password: string) => void,
+  logout?: () => void,
+  register?: (email: string, password: string) => void
+}

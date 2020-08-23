@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, TextInput, Button, View } from 'react-native';
+import { AuthContext } from '../context/authContext';
 
 interface ILoginDetails {
     email: string,
@@ -7,6 +8,7 @@ interface ILoginDetails {
   }
 
 export const LoginScreen = () => {
+    const {auth: {login}} = React.useContext(AuthContext)
     const [loginDetails, setLoginDetails] = React.useState<ILoginDetails>({email: "", password: ""})
   
     const handleInputChange = (val: string, type: "email" | "password") => {
@@ -28,7 +30,7 @@ export const LoginScreen = () => {
         />
         <Button
           title={"Login"}
-          onPress={() => {}}
+          onPress={() => {login(loginDetails.email, loginDetails.password)}}
         />
       </View>
     )
