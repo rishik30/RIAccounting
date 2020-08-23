@@ -3,6 +3,8 @@ import axios from 'axios';
 import {AsyncStorage} from 'react-native'
 
 import {createAction} from '../utils';
+import {useFetch} from './useFetch'
+import { LOGIN_URL } from '../configs';
 
 export function useAuth() {
   const [state, dispatch] = React.useReducer(
@@ -35,17 +37,28 @@ export function useAuth() {
   const auth = React.useMemo(
     () => ({
       login: async (email: string, password: string) => {
-        // const {data} = await axios.post(`${BASE_URL}/auth/local`, {
-        //   identifier: email,
-        //   password,
-        // });
-        const data = {user: {email: "test@test.com"}, token: "ncshh279yinwfjk"}
-        const user = {
-          email: data.user.email,
-          token: data.token,
-        };
-        await AsyncStorage.setItem('user', JSON.stringify(user));
-        dispatch(createAction('SET_USER', user));
+        console.log({email, password})
+        dispatch(createAction('SET_LOADING', true));
+        try {
+          const response = await fetch(LOGIN_URL, {
+            method: 'POST',
+            body: JSON.stringify({email, password}),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          const {data} = await response.json()
+          const user = {
+            email: data.user.email,
+            token: data.token,
+          };
+          console.log({data})
+          dispatch(createAction('SET_LOADING', false));
+          await AsyncStorage.setItem('user', JSON.stringify(user));
+          dispatch(createAction('SET_USER', user));
+        } catch(err) {
+          console.log({err})
+        }
       },
       logout: async () => {
         await AsyncStorage.removeItem('user');

@@ -25,3 +25,14 @@ export interface IAuth {
   logout?: () => void,
   register?: (email: string, password: string) => void
 }
+
+export interface IReducerAction {
+  type: string,
+  payload?: any
+}
+
+export interface IFetchOpts {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  body?: any,
+  headers?: any
+}

@@ -9,7 +9,6 @@ import AuthNavigator from './AuthNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const authContext = React.useContext(AuthContext)
-  console.log({authContext})
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
