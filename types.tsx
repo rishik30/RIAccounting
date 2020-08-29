@@ -34,5 +34,6 @@ export interface IReducerAction {
 export interface IFetchOpts {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   body?: any,
-  headers?: any
+  headers?: any,
+  queryParams?: any
 }

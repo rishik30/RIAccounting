@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {isEmpty as _isEmpty, get as _get} from 'lodash'
 import {IReducerAction, IFetchOpts} from '../types'
 
 interface IInitialState {
@@ -33,6 +34,14 @@ export const useFetch = (url: string, opts?: IFetchOpts) => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log({opts})
+                if (opts && !_isEmpty(_get(opts, 'queryParams', {}))) {
+                    const stringifyParams = Object.keys(opts.queryParams).map((key: string) => {
+                        return `${key}=${opts.queryParams[key]}`
+                    }).join("&")
+                    console.log({stringifyParams})
+                    url = `${url}?${stringifyParams}`
+                }
                 dispatch({type: 'FETCHING'})
                 const body = opts && opts.body && JSON.stringify(opts.body)
                 const response = await fetch(url, {
@@ -50,5 +59,5 @@ export const useFetch = (url: string, opts?: IFetchOpts) => {
         fetchData()
     }, [url])
 
-    return {...state}
+    return [state.data, state.error, state.isLoading]
 }

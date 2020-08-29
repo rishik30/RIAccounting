@@ -50,9 +50,11 @@ export function useAuth() {
           const {data} = await response.json()
           const user = {
             email: data.user.email,
+            name: data.user.name,
+            role: data.user.role,
+            id: data.user.id,
             token: data.token,
           };
-          console.log({data})
           dispatch(createAction('SET_LOADING', false));
           await AsyncStorage.setItem('user', JSON.stringify(user));
           dispatch(createAction('SET_USER', user));
