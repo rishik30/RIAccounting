@@ -20,7 +20,7 @@ const UserEntry = (props: IUserEntry) => {
                 <Text style={styles.subHeader}>{details.description || ""}</Text>
             </View>
             <View>
-                <Text style={isDebit ? styles.debitAmount : styles.creditAmount}>{details.amount}</Text>
+                <Text style={isDebit ? styles.debitAmount : styles.creditAmount}>{`₹ ${details.amount}`}</Text>
             </View>
         </View>
     )

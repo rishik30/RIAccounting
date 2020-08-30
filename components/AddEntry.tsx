@@ -2,12 +2,26 @@ import * as React from "react"
 import {View, StyleSheet, Modal, Text, Image, TouchableOpacity} from "react-native"
 import * as Animatable from 'react-native-animatable';
 import { pallete } from "../constants/Colors"
+import EntryFormMoal, { IEntryFormModalProps } from "./modal/EntryFormModal";
+import { ENTRY_TYPE_ENUM } from "../appConstants";
 
 const AddEntry = () => {
     const [addIconClicked, setAddIconClicked] = React.useState<boolean>(false)
+    const [saveEntryModalProps, setSaveEntryModalProps] = React.useState<IEntryFormModalProps>({
+        open: false,
+        entryType: ENTRY_TYPE_ENUM.CREDIT
+    })
 
     const handleAddPress = () => {
         setAddIconClicked((val) => !val)
+    }
+
+    const handleAddEntryOptionPress = (type: ENTRY_TYPE_ENUM) => {
+        setSaveEntryModalProps({entryType: type, open: true})
+    }
+
+    const closeAddEntryModal = () => {
+        setSaveEntryModalProps({entryType: ENTRY_TYPE_ENUM.CREDIT, open: false})
     }
 
     return (
@@ -19,10 +33,16 @@ const AddEntry = () => {
                         duration={500}
                         style={styles.addContainer}
                     >
-                        <TouchableOpacity style={styles.entryOptions}>
+                        <TouchableOpacity
+                            style={styles.entryOptions}
+                            onPress={() => handleAddEntryOptionPress(ENTRY_TYPE_ENUM.CREDIT)}
+                        >
                             <Text style={styles.creditOption}>{"Credit"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.entryOptions}>
+                        <TouchableOpacity
+                            style={styles.entryOptions}
+                            onPress={() => handleAddEntryOptionPress(ENTRY_TYPE_ENUM.DEBIT)}
+                        >
                             <Text style={styles.debitOption}>{"Debit"}</Text>
                         </TouchableOpacity>
                     </Animatable.View>
@@ -39,6 +59,10 @@ const AddEntry = () => {
                     />
                 </TouchableOpacity>
             </View>
+            <EntryFormMoal
+                {...saveEntryModalProps}
+                closeModal={closeAddEntryModal}
+            />
         </View>
     )
 }
