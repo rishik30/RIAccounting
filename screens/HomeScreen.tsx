@@ -6,6 +6,7 @@ import { isEmpty as _isEmpty } from "lodash";
 import { FETCH_USER_ENTRIES_URL } from "../appConstants";
 import { fetchHelper } from "../utils";
 import UserEntry from "../components/UserEntry";
+import AddEntry from "../components/AddEntry";
 
 const HomeScreen = () => {
     const {user, auth} = React.useContext(AuthContext)
@@ -102,6 +103,7 @@ const HomeScreen = () => {
                         <Text>Hide Modal</Text>
                     </TouchableOpacity>
                 </Modal>
+                <AddEntry />
             </Animatable.View>
         </View>
     )
