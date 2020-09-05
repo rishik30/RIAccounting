@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Text, View } from '../components/Themed';
 import { AuthContext } from '../context/authContext';
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({navigation}) {
   const {users} = React.useContext(AuthContext)
 
   return (
@@ -29,7 +29,7 @@ export default function TabTwoScreen() {
         keyExtractor={(item: any, index: number) => `${item.name}-${index}`}
         renderItem={({item, index, separators}) => (
           <View style={styles.separator}>
-          <TouchableOpacity style={styles.userContainer}>
+          <TouchableOpacity style={styles.userContainer} onPress={() => navigation.navigate("OtherUserDetailsScreen", {userId: item.id})}>
             <Text style={styles.name}>{item.name}</Text>
             <View style={{flex: 1, flexDirection: "row"}}>
               <Text>₹{item.balance || 0}</Text>

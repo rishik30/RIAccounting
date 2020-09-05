@@ -9,6 +9,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import HomeScreen from '../screens/HomeScreen';
+import OtherUserDetailsScreen from '../screens/OtherUserDetailsScreen';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -57,7 +58,7 @@ function TabOneNavigator() {
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const TabTwoStack = createStackNavigator();
 
 function TabTwoNavigator() {
   return (
@@ -65,6 +66,10 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
+      />
+      <TabTwoStack.Screen
+        name="OtherUserDetailsScreen"
+        component={OtherUserDetailsScreen}
       />
     </TabTwoStack.Navigator>
   );
