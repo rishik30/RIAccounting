@@ -3,7 +3,7 @@ import { StyleSheet, Modal, TouchableOpacity, View, Text, FlatList, Platform } f
 import * as Animatable from 'react-native-animatable';
 import { AuthContext } from "../context/authContext";
 import { isEmpty as _isEmpty } from "lodash";
-import { FETCH_USER_ENTRIES_URL } from "../appConstants";
+import { FETCH_USER_ENTRIES_URL, FETCH_ALL_USERS_URL } from "../appConstants";
 import { fetchHelper } from "../utils";
 import UserEntry from "../components/UserEntry";
 import AddEntry from "../components/AddEntry";
@@ -14,6 +14,7 @@ const HomeScreen = () => {
     const [entries, setEntries] = React.useState<Array<any>>([])
     const [refresh, setRefresh] = React.useState<boolean>(false)
     const [openModal, setOpenModal] = React.useState<boolean>(false)
+    const [users, setUsers] = React.useState<Array<any>>([])
 
     const fetchUserEntries = async () => {
         const {data} = await fetchHelper(FETCH_USER_ENTRIES_URL, {
@@ -26,10 +27,22 @@ const HomeScreen = () => {
         // console.log({userEntriesData: data})
         setEntries(data)
     }
+    
+    const fetchAllUsers = async () => {
+        try {
+            const {data} = await fetchHelper(FETCH_ALL_USERS_URL, {
+                method: 'GET'
+            })
+            setUsers(data)
+        } catch (error) {
+            
+        }
+    }
 
     // cmd
     React.useEffect(() => {
         fetchUserEntries()
+        fetchAllUsers()
     }, [])
 
     const handleRefresh = async () => {
@@ -103,7 +116,7 @@ const HomeScreen = () => {
                         <Text>Hide Modal</Text>
                     </TouchableOpacity>
                 </Modal>
-                <AddEntry />
+                <AddEntry users={users} />
             </Animatable.View>
         </View>
     )

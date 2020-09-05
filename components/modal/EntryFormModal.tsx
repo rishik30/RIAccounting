@@ -1,6 +1,8 @@
 import * as React from "react"
-import {Modal, View, TextInput, Text, TouchableOpacity, StyleSheet, NativeSyntheticEvent} from "react-native"
+import {Modal, View, TextInput, Text, TouchableOpacity, StyleSheet, NativeSyntheticEvent, Picker} from "react-native"
 import DateTimePicker from '@react-native-community/datetimepicker';
+// import {Picker} from '@react-native-community/picker';
+import {isEmpty as _isEmpty} from "lodash";
 import { ENTRY_TYPE_ENUM } from "../../appConstants";
 import { pallete } from "../../constants/Colors";
 import { AuthContext } from "../../context/authContext";
@@ -11,6 +13,7 @@ export interface IEntryFormModalProps {
     open: boolean,
     entryType: ENTRY_TYPE_ENUM
     closeModal?: () => void,
+    users: Array<any>
 }
 
 const EntryFormMoal = (props: IEntryFormModalProps) => {
@@ -20,6 +23,7 @@ const EntryFormMoal = (props: IEntryFormModalProps) => {
     const [amount, setAmount] = React.useState<string>("")
     const [description, setDescription] = React.useState<string>("")
     const [show, setShow] = React.useState<boolean>(false)
+    const [selectedUser, setSelectedUser] = React.useState<string | number | undefined>(undefined)
 
     const handleOnChange = (event: Event, selectedDate: Date | undefined) => {
         setDate(selectedDate || date)
@@ -67,6 +71,10 @@ const EntryFormMoal = (props: IEntryFormModalProps) => {
         }
     }
 
+    const handleUserSelection = (itemValue: React.ReactText, itemIndex: number) => {
+        setSelectedUser(itemValue)
+    }
+
     const constructedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 
     return (
@@ -102,6 +110,14 @@ const EntryFormMoal = (props: IEntryFormModalProps) => {
                     display="default"
                     onChange={handleOnChange}
                 />}
+                {!_isEmpty(props.users) && <Picker
+                    selectedValue={selectedUser}
+                    onValueChange={handleUserSelection}
+                >
+                    {props.users.map((user, index) => {
+                        return <Picker.Item label={user.name} value={user.id} />
+                    })}
+                </Picker>}
                 <View style={styles.ctaContainer}>
                     <View style={styles.inline}>
                         <TouchableOpacity onPress={saveEntryDetails}>

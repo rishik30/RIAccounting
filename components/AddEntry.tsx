@@ -5,7 +5,11 @@ import { pallete } from "../constants/Colors"
 import EntryFormMoal, { IEntryFormModalProps } from "./modal/EntryFormModal";
 import { ENTRY_TYPE_ENUM } from "../appConstants";
 
-const AddEntry = () => {
+interface IAddEntryProps {
+    users: Array<any>
+}
+
+const AddEntry = (props: IAddEntryProps) => {
     const [addIconClicked, setAddIconClicked] = React.useState<boolean>(false)
     const [saveEntryModalProps, setSaveEntryModalProps] = React.useState<IEntryFormModalProps>({
         open: false,
@@ -62,6 +66,7 @@ const AddEntry = () => {
             <EntryFormMoal
                 {...saveEntryModalProps}
                 closeModal={closeAddEntryModal}
+                users={props.users}
             />
         </View>
     )
