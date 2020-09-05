@@ -14,7 +14,7 @@ const HomeScreen = () => {
     const [entries, setEntries] = React.useState<Array<any>>([])
     const [refresh, setRefresh] = React.useState<boolean>(false)
     const [openModal, setOpenModal] = React.useState<boolean>(false)
-    const [users, setUsers] = React.useState<Array<any>>([])
+    // const [users, setUsers] = React.useState<Array<any>>([])
 
     const fetchUserEntries = async () => {
         const {data} = await fetchHelper(FETCH_USER_ENTRIES_URL, {
@@ -28,21 +28,21 @@ const HomeScreen = () => {
         setEntries(data)
     }
     
-    const fetchAllUsers = async () => {
-        try {
-            const {data} = await fetchHelper(FETCH_ALL_USERS_URL, {
-                method: 'GET'
-            })
-            setUsers(data)
-        } catch (error) {
+    // const fetchAllUsers = async () => {
+    //     try {
+    //         const {data} = await fetchHelper(FETCH_ALL_USERS_URL, {
+    //             method: 'GET'
+    //         })
+    //         setUsers(data)
+    //     } catch (error) {
             
-        }
-    }
+    //     }
+    // }
 
     // cmd
     React.useEffect(() => {
         fetchUserEntries()
-        fetchAllUsers()
+        // fetchAllUsers()
     }, [])
 
     const handleRefresh = async () => {
@@ -58,7 +58,7 @@ const HomeScreen = () => {
     const hasEntries = !_isEmpty(entries)
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.logout} onPress={auth.logout}>Logout</Text> */}
+            <Text style={styles.logout} onPress={auth.logout}>Logout</Text>
             <View style={styles.header}>
                 <Text>
                     {`Welcome ${user.name}`}
@@ -116,7 +116,7 @@ const HomeScreen = () => {
                         <Text>Hide Modal</Text>
                     </TouchableOpacity>
                 </Modal>
-                <AddEntry users={users} />
+                <AddEntry />
             </Animatable.View>
         </View>
     )

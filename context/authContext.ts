@@ -3,7 +3,8 @@ import { IAuth } from '../types'
 
 interface IAuthContext {
     user: any,
-    auth: IAuth
+    auth: IAuth,
+    users: Array<any>
 }
 
-export const AuthContext = React.createContext<IAuthContext>({user: null, auth: {}})
+export const AuthContext = React.createContext<IAuthContext>({user: null, auth: {}, users: []})

@@ -6,7 +6,7 @@ import EntryFormMoal, { IEntryFormModalProps } from "./modal/EntryFormModal";
 import { ENTRY_TYPE_ENUM } from "../appConstants";
 
 interface IAddEntryProps {
-    users: Array<any>
+
 }
 
 const AddEntry = (props: IAddEntryProps) => {
@@ -66,7 +66,6 @@ const AddEntry = (props: IAddEntryProps) => {
             <EntryFormMoal
                 {...saveEntryModalProps}
                 closeModal={closeAddEntryModal}
-                users={props.users}
             />
         </View>
     )

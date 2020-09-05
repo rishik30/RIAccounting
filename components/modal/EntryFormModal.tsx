@@ -12,13 +12,12 @@ import {FETCH_USER_ENTRIES_URL} from "../../appConstants"
 export interface IEntryFormModalProps {
     open: boolean,
     entryType: ENTRY_TYPE_ENUM
-    closeModal?: () => void,
-    users: Array<any>
+    closeModal?: () => void
 }
 
 const EntryFormMoal = (props: IEntryFormModalProps) => {
-    const {user} = React.useContext(AuthContext)
-
+    const {user, users} = React.useContext(AuthContext)
+    const usersToSelect = users.filter(userItem => userItem.id !== user.id)
     const [date, setDate] = React.useState<Date>(new Date())
     const [amount, setAmount] = React.useState<string>("")
     const [description, setDescription] = React.useState<string>("")
@@ -110,11 +109,11 @@ const EntryFormMoal = (props: IEntryFormModalProps) => {
                     display="default"
                     onChange={handleOnChange}
                 />}
-                {!_isEmpty(props.users) && <Picker
+                {!_isEmpty(usersToSelect) && <Picker
                     selectedValue={selectedUser}
                     onValueChange={handleUserSelection}
                 >
-                    {props.users.map((user, index) => {
+                    {usersToSelect.map((user, index) => {
                         return <Picker.Item label={user.name} value={user.id} />
                     })}
                 </Picker>}
