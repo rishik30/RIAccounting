@@ -21,7 +21,10 @@ export default function App() {
       const fetchAllUsers = async () => {
         try {
             const {data} = await fetchHelper(FETCH_ALL_USERS_URL, {
-                method: 'GET'
+                method: 'GET',
+                queryParams: {
+                  required: "balance"
+                }
             })
             setUsers(data)
         } catch (error) {

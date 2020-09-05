@@ -31,7 +31,10 @@ export default function TabTwoScreen() {
           <View style={styles.separator}>
           <TouchableOpacity style={styles.userContainer}>
             <Text style={styles.name}>{item.name}</Text>
-            <AntDesign size={24} name="right" />
+            <View style={{flex: 1, flexDirection: "row"}}>
+              <Text>₹{item.balance || 0}</Text>
+              <AntDesign size={20} name="right" />
+            </View>
           </TouchableOpacity>
         </View>
         )}
@@ -66,6 +69,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: "black",
-    fontSize: 16
+    fontSize: 16,
+    flex: 3
   }
 });
