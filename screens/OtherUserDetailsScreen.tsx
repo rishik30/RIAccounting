@@ -3,6 +3,7 @@ import {View, Text, FlatList, TouchableOpacity} from "react-native"
 import { fetchHelper } from "../utils"
 import { FETCH_USER_ENTRIES_URL } from "../appConstants"
 import UserEntry from "../components/UserEntry"
+import { AntDesign } from "@expo/vector-icons"
 
 const OtherUserDetailsScreen = ({route}) => {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)

@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -62,14 +62,18 @@ const TabTwoStack = createStackNavigator();
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator screenOptions={{ headerShown: false }}>
+    <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
+        options={{ headerShown: false }}
       />
       <TabTwoStack.Screen
         name="OtherUserDetailsScreen"
         component={OtherUserDetailsScreen}
+        options={{
+          headerBackImage: () => <AntDesign name="arrowleft" size={16} color="black" />
+        }}
       />
     </TabTwoStack.Navigator>
   );
