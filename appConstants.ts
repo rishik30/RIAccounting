@@ -7,3 +7,5 @@ export enum ENTRY_TYPE_ENUM {
     "CREDIT" = "CREDIT",
     "DEBIT" = "DEBIT"
 }
+
+export const DEFAULT_ENTRIES_PAGE_SIZE = 10

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -15,6 +16,7 @@ export default function App() {
   const {auth, state} = useAuth()
   const colorScheme = useColorScheme();
   const [users, setUsers] = React.useState<Array<any>>([])
+  const [fontLoaded] = useFonts({Inter_400Regular})
 
   React.useEffect(() => {
     if (state.user) {
@@ -35,7 +37,7 @@ export default function App() {
     }
   }, [state.user])
 
-  if (!isLoadingComplete && state.loading) {
+  if (!isLoadingComplete && state.loading && !fontLoaded) {
     return null;
   } else {
     return (
